@@ -1,0 +1,86 @@
+# Aman Paswan — Portfolio Data
+# This file is the canonical source of truth for the RAG chatbot.
+# Keep this updated whenever your resume or portfolio changes.
+
+## Personal Information
+Name: Aman Paswan
+Email: amanpaswan464@gmail.com
+Phone: +91 8085234483
+LinkedIn: linkedin.com/in/aman-paswan-0b06311bb
+GitHub: github.com/aman0603
+Location: India
+Status: Available for opportunities
+
+## Summary
+Aman Paswan is a Backend Developer and GenAI Engineer who specializes in building production-ready systems that combine robust backend engineering with AI/ML capabilities. He is passionate about scalable microservices, RAG pipelines, and intelligent automation.
+
+## Technical Skills
+
+### Programming Languages
+Python, C/C++, JavaScript, SQL, Golang
+
+### Frameworks & Libraries
+React.js, Node.js, Express.js, NestJS, FastAPI, PyTorch, TensorFlow, Scikit-learn, Pandas, NumPy
+
+### AI / Machine Learning
+RAG (Retrieval-Augmented Generation), LLM integration, Vector Databases (ChromaDB, FAISS), Embeddings (sentence-transformers), CatBoost, LSTM, TCN, TFT, PCA, PLS
+
+### Databases
+MongoDB, PostgreSQL, MySQL, Redis, ChromaDB
+
+### Tools & DevOps
+Git, Docker, REST APIs, SSE (Server-Sent Events), JWT Authentication, Vercel, Linux
+
+## Work Experience
+
+### Naxcure Healthcare Pvt Ltd — Full Stack Developer Intern
+Duration: May 2025 – July 2025
+
+Responsibilities and Achievements:
+- Developed a compliance management system that automated regulatory workflows, reducing manual tracking by 40%.
+- Built secure MERN modules supporting 100+ compliance records with real-time dashboards.
+- Designed REST APIs and authentication flows, optimizing queries to improve response times by 30%.
+- Collaborated with cross-functional teams to meet healthcare compliance standards.
+
+### Pearl Thoughts — Backend Developer Intern
+Duration: July 2025 – August 2025
+
+Responsibilities and Achievements:
+- Built a production-ready NestJS backend for a patient-doctor appointment system serving 500+ users.
+- Applied PCA/PLS feature reduction and benchmarked multiple ML models (CatBoost, LSTM, TCN, TFT) achieving 85–90% accuracy.
+- Integrated Google Trends signals, improving prediction precision by 20% and enabling 1–3 month early warnings.
+- Designed RESTful APIs with validation and centralized error handling.
+
+## Projects
+
+### Portfolio RAG Chatbot (this website)
+A full-stack AI portfolio assistant that answers questions about Aman's background using Retrieval-Augmented Generation.
+- Stack: FastAPI, ChromaDB, sentence-transformers, OpenRouter LLM, React, TypeScript, Tailwind CSS, Framer Motion, Three.js
+- Features: SSE streaming, session-based chat history, rate limiting, vector similarity search
+- The chatbot retrieves relevant context from Aman's portfolio data and generates accurate, streaming responses.
+
+### Compliance Management System (Naxcure Healthcare)
+An automated regulatory compliance platform built for healthcare workflows.
+- Stack: MERN (MongoDB, Express.js, React.js, Node.js), JWT, REST APIs
+- Reduced manual compliance tracking by 40% and supported 100+ compliance records with real-time dashboards.
+
+### Patient-Doctor Appointment System (Pearl Thoughts)
+A scalable appointment management backend serving 500+ users.
+- Stack: NestJS, PostgreSQL, REST APIs
+- Integrated ML models (CatBoost, LSTM, TCN, TFT) for predictive analytics with 85–90% accuracy.
+
+### Stealth Research Tool
+A data research and aggregation tool built for stealth-level privacy.
+- Stack: Python, automation scripts, data processing pipelines.
+
+## Education
+Aman has a strong foundation in Computer Science and has supplemented his degree with hands-on project work and internships in backend development and AI/ML.
+
+## Contact & Social Links
+- Email: amanpaswan464@gmail.com
+- LinkedIn: https://linkedin.com/in/aman-paswan-0b06311bb
+- GitHub: https://github.com/aman0603
+- Phone: +91 8085234483
+
+## How to Reach Aman
+You can reach Aman Paswan through email at amanpaswan464@gmail.com, on LinkedIn at linkedin.com/in/aman-paswan-0b06311bb, or on GitHub at github.com/aman0603. He is open to full-time roles, internships, and collaborations in backend development and AI/GenAI engineering.

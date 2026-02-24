@@ -1,7 +1,21 @@
 [project]
 name = "portfolio"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.0.0"
+description = "RAG-powered chatbot backend for Aman Paswan's portfolio"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.34.0",
+    "httpx>=0.28.0",
+    "python-dotenv>=1.1.0",
+    "pydantic>=2.11.0",
+    "pydantic-settings>=2.8.0",
+    "sqlalchemy>=2.0.0",
+    "chromadb>=0.6.0",
+    "sentence-transformers>=3.4.0",
+    "sse-starlette>=2.2.0",
+    "psycopg2-binary>=2.9.11",
+    "asyncpg>=0.31.0",
+    "pypdf>=6.7.2",
+]

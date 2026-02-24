@@ -1,6 +1,7 @@
 # Python-generated files
 __pycache__/
 *.py[oc]
+*.pyo
 build/
 dist/
 wheels/
@@ -8,5 +9,42 @@ wheels/
 
 # Virtual environments
 .venv
+venv
+env
 
+# Environment secrets (never commit these)
 .env
+.env.local
+.env.*.local
+
+# Local vector DB (legacy — now using Supabase pgvector)
+chroma_db/
+
+# Local SQLite / database files
+*.db
+*.sqlite
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+node_modules/
+
+# IDE & OS
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Embedding model cache (downloaded at runtime)
+.cache/
+sentence_transformers_cache/
