@@ -18,8 +18,16 @@ logging.basicConfig(
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
+    logger.info("Starting up portfolio backend...")
+    
     logger.info("Creating database tables (if not exists)…")
     Base.metadata.create_all(bind=engine)
+    
+    # Pre-load embedding model to avoid first-request latency
+    from .services.embeddings import generate_embedding
+    logger.info("Pre-warming embedding model...")
+    generate_embedding("warmup")
+    
     logger.info("Portfolio backend is ready ✓")
     yield
     # Shutdown
