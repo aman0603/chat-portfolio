@@ -19,6 +19,7 @@ env
 
 # Local vector DB (legacy — now using Supabase pgvector)
 chroma_db/
+backend/chroma_db/
 
 # Local SQLite / database files
 *.db
@@ -48,3 +49,4 @@ htmlcov/
 # Embedding model cache (downloaded at runtime)
 .cache/
 sentence_transformers_cache/
+backend/.cache/

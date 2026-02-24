@@ -8,7 +8,7 @@
 
 - 🤖 **RAG Chatbot** — answers questions about Aman using embeddings + vector search
 - ⚡ **SSE Streaming** — responses stream token-by-token like ChatGPT
-- 🧠 **pgvector on Supabase** — cloud-native, persistent vector embeddings (no ChromaDB)
+- 🧠 **pgvector on Supabase** — cloud-native, persistent vector embeddings
 - 🎨 **3D Hero** — Three.js torus knot + animated background
 - 🌗 **Light / Dark mode** — persisted in localStorage
 - 📱 **Fully responsive** — Tailwind CSS + Framer Motion animations
@@ -20,21 +20,30 @@
 ## 🏗️ Architecture
 
 ```
-frontend/                     # Vite + React + TypeScript
-│  ├── src/context/           # ChatContext (SSE streaming), ThemeContext
-│  ├── src/components/        # Hero, HeroChat, HeroScene (Three.js), ...
-│  └── .env.local             # VITE_API_URL=<backend URL>
-
-app/                          # FastAPI backend (Python)
-│  ├── api/                   # /api/chat  (POST), /api/chat/stream (SSE)
-│  ├── services/
-│  │   ├── rag_pipeline.py    # builds grounded LLM messages
-│  │   ├── vector_store.py    # pgvector add/query via psycopg2
-│  │   └── embeddings.py      # sentence-transformers/all-MiniLM-L6-v2
-│  └── data/portfolio_data.txt  # canonical source of truth for the bot
+portfolio/
+├── backend/                      # FastAPI backend
+│   ├── app/
+│   │   ├── api/                  # /api/chat, /api/chat/stream (SSE)
+│   │   ├── services/
+│   │   │   ├── rag_pipeline.py   # builds grounded LLM messages
+│   │   │   ├── vector_store.py   # pgvector add/query via psycopg2
+│   │   │   └── embeddings.py     # sentence-transformers all-MiniLM-L6-v2
+│   │   ├── data/
+│   │   │   └── portfolio_data.txt  # edit this to update the bot
+│   │   ├── main.py
+│   │   └── config.py
+│   ├── requirements.txt
+│   ├── Procfile
+│   └── .env.example
+│
+└── frontend/                     # Vite + React + TypeScript
+    ├── src/
+    │   ├── context/              # ChatContext (SSE streaming), ThemeContext
+    │   └── components/           # Hero, HeroChat, HeroScene (Three.js), ...
+    └── .env.local.example
 
 Supabase (PostgreSQL + pgvector)
-│  └── document_embeddings    # chunk_id, content, embedding vector(384)
+└── document_embeddings   # chunk_id, content, embedding vector(384)
 ```
 
 ---
@@ -47,29 +56,27 @@ Supabase (PostgreSQL + pgvector)
 - A [Supabase](https://supabase.com) project with `pgvector` extension enabled
 - An [OpenRouter](https://openrouter.ai) API key
 
-### 1. Clone & install backend
+### 1. Clone the repo
 
 ```bash
 git clone <repo-url>
 cd portfolio
+```
 
+### 2. Backend setup
+
+```bash
+cd backend
 python -m venv .venv
 .venv\Scripts\activate          # Windows
 # source .venv/bin/activate    # Mac/Linux
-
 pip install -r requirements.txt
-```
-
-### 2. Configure environment
-
-```bash
-cp .env.example .env
-# Fill in your values in .env
+cp .env.example .env            # fill in your values
 ```
 
 ### 3. Set up Supabase
 
-Enable the pgvector extension in your Supabase SQL editor:
+Enable pgvector in your Supabase SQL editor:
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS vector;
@@ -89,8 +96,8 @@ CREATE INDEX IF NOT EXISTS ix_doc_emb_hnsw
 ### 4. Ingest portfolio data
 
 ```bash
+# From the backend/ directory
 python -m app.load_portfolio_data
-# Optional: python -m app.load_pdf_resume  (if you have a PDF resume)
 ```
 
 ### 5. Run backend
@@ -99,11 +106,11 @@ python -m app.load_portfolio_data
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-### 6. Run frontend
+### 6. Frontend setup
 
 ```bash
-cd frontend
-cp .env.local.example .env.local
+cd ../frontend
+cp .env.local.example .env.local  # set VITE_API_URL if needed
 npm install
 npm run dev
 ```
@@ -112,15 +119,16 @@ npm run dev
 
 ## ⚙️ Environment Variables
 
-### Backend (`portfolio/.env`)
+### Backend (`backend/.env`)
 
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `OPENROUTER_API_KEY` | Your OpenRouter key | `sk-or-v1-...` |
-| `OPENROUTER_MODEL` | LLM model to use | `arcee-ai/trinity-large-preview:free` |
-| `DATABASE_URL` | Supabase PostgreSQL connection string | `postgresql://postgres:...@aws-0-...pooler.supabase.com:5432/postgres` |
+| `OPENROUTER_MODEL` | LLM model slug | `arcee-ai/trinity-large-preview:free` |
+| `DATABASE_URL` | Supabase pooler connection string | `postgresql://postgres:...@aws-0-....pooler.supabase.com:5432/postgres` |
+| `FRONTEND_URL` | Deployed frontend URL for CORS | `https://your-portfolio.vercel.app` |
 
-### Frontend (`portfolio/frontend/.env.local`)
+### Frontend (`frontend/.env.local`)
 
 | Variable | Description | Example |
 |----------|-------------|---------|
@@ -132,19 +140,18 @@ npm run dev
 
 ## 🌍 Deployment
 
-### Backend — [Railway](https://railway.app) / [Render](https://render.com) / [Fly.io](https://fly.io)
+### Backend — [Railway](https://railway.app) / [Render](https://render.com)
 
 1. Connect your GitHub repo
-2. Set the root directory to `portfolio/`
-3. Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-4. Add env vars: `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, `DATABASE_URL`
+2. Set **Root Directory** → `backend/`
+3. Start command is auto-detected via `Procfile`: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+4. Add env vars: `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, `DATABASE_URL`, `FRONTEND_URL`
 
 ### Frontend — [Vercel](https://vercel.com)
 
 1. Connect your GitHub repo
-2. Set the root directory to `portfolio/frontend`
-3. Build command: `npm run build` | Output: `dist`
-4. Add env var: `VITE_API_URL=https://your-deployed-backend-url`
+2. **Root Directory** → leave as `.` (repo root) — `vercel.json` handles the build
+3. Add env var: `VITE_API_URL=https://your-deployed-backend-url`
 
 ---
 
@@ -157,30 +164,6 @@ npm run dev
 | AI / RAG | sentence-transformers (all-MiniLM-L6-v2), OpenRouter LLM, pgvector |
 | Database | Supabase PostgreSQL (pgvector), SQLAlchemy (chat history) |
 | Infra | Vercel (frontend), Railway/Render (backend), Supabase (DB) |
-
----
-
-## 📁 Project Structure
-
-```
-portfolio/
-├── app/
-│   ├── api/             # FastAPI routers
-│   ├── data/            # portfolio_data.txt — edit this to update the bot
-│   ├── services/        # rag_pipeline, vector_store, embeddings
-│   ├── config.py        # pydantic-settings config
-│   ├── main.py          # FastAPI app entry point
-│   ├── load_portfolio_data.py
-│   └── load_pdf_resume.py
-├── frontend/
-│   ├── src/
-│   │   ├── components/  # Hero, Projects, Skills, Experience, Contact
-│   │   └── context/     # ChatContext, ThemeContext
-│   └── vite.config.ts
-├── requirements.txt
-├── .env.example
-└── README.md
-```
 
 ---
 
